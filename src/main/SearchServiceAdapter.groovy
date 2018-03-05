@@ -1,4 +1,4 @@
-package adapter.http
+package main
 
 
 import org.jsoup.nodes.Document
@@ -9,7 +9,7 @@ import org.jsoup.nodes.Document
 
 @Singleton(strict = false)
 
-class SearchServiceAdapter extends adapter.http.HttpsServiceAdapter {
+class SearchServiceAdapter extends HttpsServiceAdapter {
 
     private SearchServiceAdapter() {
         super("https://en.wikipedia.org")

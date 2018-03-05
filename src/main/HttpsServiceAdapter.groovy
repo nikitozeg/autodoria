@@ -1,4 +1,4 @@
-package adapter.http
+package main
 
 import groovy.util.logging.Slf4j
 import org.apache.http.HttpEntity
