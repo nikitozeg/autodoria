@@ -13,8 +13,8 @@
         <junit.version>4.12</junit.version>
         <cucumber.version>1.2.4</cucumber.version>
         <maven.compiler.version>3.3</maven.compiler.version>
-    </properties>
 
+    </properties>
     <dependencies>
         <dependency>
             <groupId>info.cukes</groupId>
@@ -65,17 +65,58 @@
     </dependencies>
 
     <build>
+        <sourceDirectory>src/main</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven.compiler.version}</version>
+                <artifactId>maven-failsafe-plugin</artifactId>
                 <configuration>
-                    <encoding>UTF-8</encoding>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <compilerArgument>-Werror</compilerArgument>
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <includes>
+                        <include>*/WikiSuite.*</include>
+                    </includes>
+                    <systemProperties>
+                        <property>
+                            <name>cucumber.options</name>
+                            <value>--plugin html:target/cucumber --plugin junit:target/test-results/report.xml</value>
+                        </property>
+                    </systemProperties>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>net.masterthought</groupId>
+                <artifactId>maven-cucumber-reporting</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <id>execution</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <!-- Make sure project name is configured otherwise use static value -->
+                            <projectName>autodoria</projectName>
+
+                            <!-- This is where the reports will be generated -->
+                            <outputDirectory>${project.build.directory}/cucumber-html-reports</outputDirectory>
+
+                            <!-- Cucumber JSON file to convert to html reports  -->
+                            <cucumberOutput>${project.build.directory}/cucumber-json</cucumberOutput>
+
+                            <buildNumber>1</buildNumber>
+                            <parallelTesting>false</parallelTesting>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

@@ -9,7 +9,7 @@ import org.jsoup.nodes.Document
 
 @Singleton(strict = false)
 
-class SearchServiceAdapter extends HttpsServiceAdapter {
+class SearchServiceAdapter extends main.HttpsServiceAdapter {
 
     private SearchServiceAdapter() {
         super("https://en.wikipedia.org")
