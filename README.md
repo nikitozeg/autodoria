@@ -12,4 +12,5 @@ and:
 $ mvn verify
 ```
 Then you can open \target\cucumber-html-reports\cucumber-html-reports and open test report
+
 For question, feel free to contact me: tazg@ya.ru
